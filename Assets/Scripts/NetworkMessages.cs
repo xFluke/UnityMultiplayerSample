@@ -8,7 +8,8 @@ namespace NetworkMessages
         PLAYER_UPDATE,
         SERVER_UPDATE,
         HANDSHAKE,
-        PLAYER_INPUT
+        PLAYER_INPUT,
+        DROPPED_CLIENT
     }
 
     [System.Serializable]
@@ -49,6 +50,17 @@ namespace NetworkMessages
             players = new List<NetworkObjects.NetworkPlayer>();
         }
     }
+
+    [System.Serializable]
+
+    public class DroppedClientMsg : NetworkHeader
+    {
+        public NetworkObjects.NetworkPlayer player;
+        public DroppedClientMsg() {      // Constructor
+            cmd = Commands.DROPPED_CLIENT;
+            player = new NetworkObjects.NetworkPlayer();
+        }
+    }
 } 
 
 namespace NetworkObjects
@@ -59,11 +71,12 @@ namespace NetworkObjects
     }
     [System.Serializable]
     public class NetworkPlayer : NetworkObject{
-        public Color cubeColor;
         public Vector3 cubPos;
 
         public NetworkPlayer(){
-            cubeColor = new Color();
+            
         }
+
+
     }
 }
